@@ -1,8 +1,17 @@
 # Node modules
 node_modules/
 
-# Build output
-dist/
+# Build output (exclude TypeScript compiled files only)
+dist/*.js
+dist/*.js.map
+dist/*.d.ts
+
+# Keep Chrome extension files
+!dist/manifest.json
+!dist/popup.html
+!dist/popup.js
+!dist/qrcode.min.js
+!dist/icons/
 
 # TypeScript cache
 *.tsbuildinfo

@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "build:extension": "npm run build && echo 'Chrome extension built in dist/ folder'"
   },
   "dependencies": {
     "qrcode": "^1.5.4"
