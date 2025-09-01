@@ -1,22 +1,26 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const textInput = document.getElementById('textInput');
-  const generateBtn = document.getElementById('generateBtn');
-  const downloadBtn = document.getElementById('downloadBtn');
-  const qrcodeDiv = document.getElementById('qrcode');
+/// <reference types="chrome" />
 
-  let currentQRCode = null;
+import QRCode from 'qrcode';
+
+document.addEventListener('DOMContentLoaded', function() {
+  const textInput = document.getElementById('textInput') as HTMLTextAreaElement;
+  const generateBtn = document.getElementById('generateBtn') as HTMLButtonElement;
+  const downloadBtn = document.getElementById('downloadBtn') as HTMLButtonElement;
+  const qrcodeDiv = document.getElementById('qrcode') as HTMLDivElement;
+
+  let currentQRCode: HTMLCanvasElement | null = null;
 
   generateBtn.addEventListener('click', generateQRCode);
   downloadBtn.addEventListener('click', downloadQRCode);
   
-  textInput.addEventListener('keypress', function(e) {
+  textInput.addEventListener('keypress', function(e: KeyboardEvent) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       generateQRCode();
     }
   });
 
-  async function generateQRCode() {
+  async function generateQRCode(): Promise<void> {
     const text = textInput.value.trim();
     
     if (!text) {
@@ -39,7 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
       
-      qrcodeDiv.appendChild(currentQRCode);
+      if (currentQRCode) {
+        qrcodeDiv.appendChild(currentQRCode);
+      }
       downloadBtn.style.display = 'block';
       
     } catch (error) {
@@ -51,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  function downloadQRCode() {
+  function downloadQRCode(): void {
     if (!currentQRCode) return;
     
     const link = document.createElement('a');
@@ -60,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
     link.click();
   }
 
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs: chrome.tabs.Tab[]) {
     if (tabs[0] && tabs[0].url && tabs[0].url !== 'chrome://newtab/') {
       textInput.value = tabs[0].url;
     }

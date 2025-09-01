@@ -1,49 +1,47 @@
-# QR Code Generator Project
+# QR Code Chrome Extension
 
 ## 프로젝트 개요
 
-이 프로젝트는 두 가지 QR 코드 생성 도구를 제공합니다:
-
-1. **CLI 도구**: 명령줄에서 텍스트를 QR 코드 이미지로 변환
-2. **Chrome 확장 프로그램**: 브라우저에서 텍스트/URL을 QR 코드로 변환
+Chrome 확장 프로그램으로 텍스트나 URL을 QR 코드로 변환하는 도구입니다.
+추가로 CLI 도구도 제공합니다.
 
 ## 기술 스택
 
-- **언어**: TypeScript, JavaScript
-- **라이브러리**: qrcode (Node.js QR 코드 생성)
-- **플랫폼**: Node.js, Chrome Extension Manifest V3
+- **언어**: TypeScript
+- **라이브러리**: qrcode (브라우저용)
+- **플랫폼**: Chrome Extension Manifest V3
+- **타입**: @types/chrome
 
 ## 프로젝트 구조
 
 ```
-qrcode/
+qrcode-extension/
 ├── src/
-│   └── index.ts              # CLI 도구 소스
-├── dist/                     # Chrome 확장 프로그램 파일
+│   └── popup.ts              # 팝업 TypeScript 소스
+├── public/                   # 정적 파일들
 │   ├── manifest.json         # 확장 프로그램 메타데이터
 │   ├── popup.html            # 팝업 UI
-│   ├── popup.js              # 팝업 로직
-│   ├── qrcode.min.js         # QR 코드 라이브러리 (브라우저용)
+│   ├── qrcode.min.js         # QR 코드 라이브러리
 │   └── icons/                # 확장 프로그램 아이콘들
+├── scripts/
+│   └── cli.ts                # CLI 도구 (Node.js용)
+├── dist/                     # 빌드된 확장 프로그램
 ├── package.json
 └── tsconfig.json
 ```
 
 ## 빌드 및 실행
 
-### CLI 도구
+### 개발 환경 설정
 ```bash
 # 의존성 설치
 npm install
 
-# TypeScript 컴파일
+# TypeScript 빌드 (확장 프로그램)
 npm run build
 
-# CLI 실행
-npm start "텍스트" [출력파일명.png]
-
-# 예시
-npm start "https://github.com" my-qrcode.png
+# 개발 모드 (TypeScript 감시)
+npm run dev
 ```
 
 ### Chrome 확장 프로그램
@@ -68,6 +66,15 @@ zip -r qrcode-extension.zip dist/
 # Chrome Web Store에 업로드
 ```
 
+### CLI 도구
+```bash
+# CLI 실행
+npm run cli "텍스트" [출력파일명.png]
+
+# 예시
+npm run cli "https://github.com" my-qrcode.png
+```
+
 ## 기능
 
 ### CLI 도구
@@ -83,22 +90,24 @@ zip -r qrcode-extension.zip dist/
 ## 개발 가이드
 
 ### 스크립트
-- `npm start`: CLI 도구 실행
-- `npm run build`: TypeScript 컴파일
-- `npm run build:extension`: 확장 프로그램 빌드
+- `npm run cli`: CLI 도구 실행
+- `npm run build`: TypeScript 컴파일 및 확장 프로그램 빌드
+- `npm run build:extension`: 확장 프로그램 빌드 (build와 동일)
+- `npm run dev`: TypeScript 감시 모드
 
-### 주의사항
-- Chrome 확장 프로그램은 Manifest V3 사용
-- CLI와 확장 프로그램이 같은 프로젝트에 혼재
-- .gitignore에서 확장 프로그램 파일들은 추적됨
+### 구조적 특징
+- **확장 프로그램 우선**: 메인 프로젝트는 Chrome 확장 프로그램
+- **TypeScript 기반**: 타입 안전성과 개발 경험 향상
+- **분리된 관심사**: CLI 도구는 scripts 폴더로 분리
+- **정적 파일 관리**: public 폴더에서 manifest, HTML, 아이콘 관리
 
 ## 향후 개선 사항
 
-1. **구조 분리**: CLI와 확장 프로그램을 별도 폴더로 분리
-2. **빌드 시스템**: webpack 등 번들러 도입
-3. **TypeScript 일관성**: 확장 프로그램도 TypeScript로 변경
-4. **테스트**: 단위 테스트 추가
-5. **CI/CD**: GitHub Actions으로 자동 빌드/배포
+1. **빌드 시스템**: webpack 등 번들러 도입으로 더 효율적인 빌드
+2. **테스트**: 단위 테스트 및 E2E 테스트 추가
+3. **CI/CD**: GitHub Actions으로 자동 빌드/배포
+4. **최적화**: 코드 스플리팅 및 번들 크기 최적화
+5. **설정 관리**: 다양한 QR 코드 옵션 설정 UI
 
 ## 라이선스
 

@@ -1,5 +1,4 @@
 import QRCode from "qrcode";
-import fs from "fs";
 
 const generateQRCode = async (
   text: string,

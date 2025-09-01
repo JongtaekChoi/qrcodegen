@@ -5,16 +5,21 @@
   "author": "Jongtaek Choi <lastchoice86@naver.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "build": "tsc",
-    "build:extension": "npm run build && echo 'Chrome extension built in dist/ folder'"
+    "cli": "ts-node scripts/cli.ts",
+    "dev": "vite",
+    "build": "vite build",
+    "build:extension": "npm run build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "qrcode": "^1.5.4"
   },
   "devDependencies": {
+    "@crxjs/vite-plugin": "^2.2.0",
+    "@types/chrome": "^0.1.4",
     "@types/qrcode": "^1.5.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vite": "^7.1.4"
   }
 }
