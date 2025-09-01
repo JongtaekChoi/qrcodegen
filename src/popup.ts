@@ -69,6 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs: chrome.tabs.Tab[]) {
     if (tabs[0] && tabs[0].url && tabs[0].url !== 'chrome://newtab/') {
       textInput.value = tabs[0].url;
+      // 자동으로 현재 URL의 QR 코드 생성
+      generateQRCode();
     }
   });
 });
