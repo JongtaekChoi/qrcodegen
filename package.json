@@ -9,6 +9,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:extension": "npm run build",
+    "package": "npm run build && rm -rf dist/.vite && zip -r qrcode-extension-v1.0.0-store.zip dist/",
     "preview": "vite preview"
   },
   "dependencies": {
