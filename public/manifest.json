@@ -1,11 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "QR Code Generator",
+  "name": "QR Code Generator - Quick & Simple",
   "version": "1.0.0",
-  "description": "Generate QR codes from any text or URL",
+  "description": "Instantly generate QR codes for any text or URL. One-click QR code creation with automatic current page detection and easy download.",
+  "author": "Jongtaek Choi",
   "permissions": ["activeTab"],
+  "host_permissions": [],
   "action": {
     "default_popup": "popup.html",
+    "default_title": "Generate QR Code",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -16,5 +19,6 @@
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
-  }
+  },
+  "homepage_url": "https://github.com/jtchoi/qrcode-extension"
 }
